@@ -18,7 +18,7 @@ function createAccount() {
 		password: passwordElement
 	};
 
-	let url = urlBase + "/createAccount." + extension;
+	let url = urlBase + "/CreateAccount." + extension;
 
 	// const options = {
 	// 	method: 'GET'
