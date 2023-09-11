@@ -1,140 +1,218 @@
-body 
-{
-    background-color: #707070;
+body {
+  background-image: url("../images/spiderVerseBg.png");
+  /* background-color: grey; */
+  background-size: cover;
+  overflow: hidden;
 }
 
-#title 
-{
-    font-size: 40px;
-    width: 100%;
-    margin: 2% 5%;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+.portals {
+  text-align: center;
+  position: relative;
+  top: 200px;
 }
 
-#loginDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+.link {
+  margin-left: 50px;
+  color: white;
+  text-color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 5px;
+  border-width: thin;
+  padding: 15px;
+  width: 80%;
 }
 
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+#title {
+  font-size: 40px;
+  width: 100%;
+  margin: 2% 5%;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  color: #ffffff;
 }
 
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-    background-color: #b2b2b2;
+#loginDiv {
+  font-size: 30px;
+  width: 40%;
+  margin-left: 30%;
+  padding: 25px;
+  background-color: #1c181f;
+  border-radius: 1.5%;
+  box-shadow: 5px 10px 2px #211447;
 }
 
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+#loggedInDiv {
+  font-size: 30px;
+  width: 70%;
+  margin-left: 15%;
+  padding: 25px;
+  background-color: #b2b2b2;
 }
 
-.buttons:hover{
-    background-color: #00d5124f;
-    color: #FFFFFF;
-    opacity: 50%;
+#accessUIDiv {
+  font-size: 30px;
+  width: 70%;
+  margin-left: 15%;
+  padding: 25px;
+  background-color: #b2b2b2;
 }
 
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#colorText
-{
-	font-size: 30px;
+.buttons {
+  font-size: 20px;
+  border-radius: 8px;
+  width: 50%;
+  margin-left: 25%;
+  font-family: "Ubuntu", sans-serif;
 }
 
-input[type="text"],input[type="password"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+.buttons:hover {
+  background-color: #211447;
+  color: #ffffff;
+  opacity: 50%;
 }
 
-#inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+#loginName {
+  font-size: 30px;
+}
+#loginPassword {
+  font-size: 30px;
+}
+#searchText {
+  font-size: 30px;
+}
+#colorText {
+  font-size: 30px;
 }
 
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+input[type="text"],
+input[type="password"] {
+  margin: auto;
+  border-radius: 25px;
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 2%;
+  font-family: "Ubuntu", sans-serif;
+  border-radius: 8px;
 }
 
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
+#inner-title {
+  display: inline-block;
+  font-size: 0.8em;
+  width: 90%;
+  text-align: center;
+  margin-left: 5%;
+  margin-bottom: 2%;
+  font-family: "Ubuntu", sans-serif;
+  color: white;
 }
 
-#logoutButton{
-    width: 20%;
-    margin-left: 40%;
+#loginResult {
+  display: inline-block;
+  font-size: 0.8em;
+  width: 90%;
+  text-align: center;
+  margin-left: 5%;
+  margin-bottom: 2%;
+  font-family: "Ubuntu", sans-serif;
+  color: #95060a;
 }
 
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Ubuntu', sans-serif;
+#userName {
+  display: inline-block;
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
 }
 
-#colorSearchResult{
-    display: none;
+#logoutButton {
+  width: 20%;
+  margin-left: 40%;
 }
 
-#colorAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+select {
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 2%;
+  font-size: 0.75em;
+  font-family: "Ubuntu", sans-serif;
 }
+
+#colorSearchResult {
+  display: none;
+}
+
+#colorAddResult {
+  display: inline-block;
+  font-size: 0.8em;
+  width: 90%;
+  text-align: center;
+  margin-left: 5%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  font-family: "Ubuntu", sans-serif;
+  color: #95060a;
+}
+
+/* #stack {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#stack a {
+  font-weight: bold;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  font-size: 4rem;
+  --stack-height: calc(100% / var(--stacks) - 1px);
+  --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+  --clip-top: calc(var(--stack-height) * var(--index));
+  --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+  clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+  animation: stack 340ms cubic-bezier(0.46, 0.29, 0, 1.24) 1 backwards
+      calc(var(--index) * 120ms),
+    glitch 2s ease infinite 2s alternate-reverse;
+}
+
+#stack a:nth-child(odd) {
+  --glitch-translate: 8px;
+}
+#stack a:nth-child(even) {
+  --glitch-translate: -8px;
+}
+
+@keyframes stack {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%);
+    text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateX(50%);
+  }
+  80% {
+    transform: none;
+    opacity: 1;
+    text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+    transform: translate(var(--glitch-translate));
+  }
+  2% {
+    text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+  }
+  4%,
+  100% {
+    text-shadow: none;
+    transform: none;
+  }
+} */
