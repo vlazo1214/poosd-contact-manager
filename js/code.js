@@ -20,10 +20,6 @@ function createAccount() {
 
 	let url = urlBase + "/CreateAccount." + extension;
 
-	// const options = {
-	// 	method: 'GET'
-	// }
-
 	let newUser = new XMLHttpRequest();
 	newUser.open("POST", url);
 	newUser.setRequestHeader("Content-type", "application/json; charset=UTF-8");
