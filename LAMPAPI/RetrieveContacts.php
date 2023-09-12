@@ -9,8 +9,8 @@
 	}
 	else
 	{
-    $stmt = $conn->prepare("select Name from Colors where UserID=? and GroupID=?");
-		$stmt->bind_param("ss", $inData["userId"], $inData["groupId"]);
+    $stmt = $conn->prepare("select Name from Contacts where UserID=? and GroupID=?");
+		$stmt->bind_param("ii", $inData["userId"], $inData["groupId"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -22,7 +22,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["Name"] . '"';
+			$searchResults .= '"' . $row["FirstName"] . '",' . '"' . $row["LastName"] . '",' . '"' . $row["Phone"] . '",' . '"' . $row["Email"] . '"';
 		}
 
 		if( $searchCount == 0 )
