@@ -13,7 +13,7 @@
 	else
 	{
 		$stmt = $conn->prepare("INSERT into UserGroups (GroupColor, GroupName, UserID) VALUES(?,?,?)");
-		$stmt->bind_param("is", $color, $name, $userId);
+		$stmt->bind_param("isi", $color, $name, $userId);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
