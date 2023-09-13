@@ -1,18 +1,18 @@
 <?php
 	$inData = getRequestInfo();
-
+	
   $ID = $inData["ID"];
-
+  
   $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-	if ($conn->connect_error)
+	if ($conn->connect_error) 
 	{
    // echo ("Connection Error");
 		returnWithError( $conn->connect_error );
-	}
+	} 
 	else
 	{
    // echo ("not Connection Error");
-
+    
 	 $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
 	 $stmt->bind_param("i", $ID);
 		$stmt->execute();
@@ -31,11 +31,11 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-
+	
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-
-?>
+	
+?> 

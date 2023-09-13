@@ -1,6 +1,10 @@
 <?php
 	$inData = getRequestInfo();
-
+  
+  $userId = $inData["userId"];
+  $groupId = $inData["groupId"];
+  $searchResults = "{";
+  $searchCount = 0;
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -9,10 +13,17 @@
 	}
 	else
 	{
-    $stmt = $conn->prepare("select Name from Contacts where UserID=? and GroupID=?");
-		$stmt->bind_param("ii", $inData["userId"], $inData["groupId"]);
+   //echo ("Here1");
+   if($groupId == 0){
+   
+    $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID is NULL");
+    $stmt->bind_param("i", $userId);
+    } else {
+       $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID=?");
+        $stmt->bind_param("ii", $userId, $groupId);
+   }
 		$stmt->execute();
-
+    
 		$result = $stmt->get_result();
 
 		while($row = $result->fetch_assoc())
@@ -22,8 +33,8 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"' . $row["FirstName"] . '",' . '"' . $row["LastName"] . '",' . '"' . $row["Phone"] . '",' . '"' . $row["Email"] . '"}';
-		}
+			$searchResults .= '{"FistName" : "' . $row["FirstName"] . '",' . '"LastName" : "' . $row["LastName"] . '",' . '"Phone" : "' . $row["Phone"] . '", "Email" : ' . '"' . $row["Email"] . '"}';		
+      }
 
 		if( $searchCount == 0 )
 		{
@@ -31,6 +42,7 @@
 		}
 		else
 		{
+     $searchResults.="}";
 			sendResultInfoAsJson( $searchResults );
 		}
 
