@@ -140,7 +140,7 @@ function addContact() {
 	let phoneNum = document.getElementById("phoneNumber").value;
 	let email = document.getElementById("email").value;
 
-	document.getElementById("colorAddResult").innerHTML = "";
+	//document.getElementById("colorAddResult").innerHTML = "";
 
 	let tmp = { firstName: fName, lastName: lName, phoneNumber: phoneNum, email: email, groupId: null, userId: 1 };
 	let jsonPayload = JSON.stringify(tmp);
