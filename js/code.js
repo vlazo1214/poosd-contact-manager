@@ -33,7 +33,6 @@ function createAccount() {
 			}
 		};
 		newUserJSON = JSON.stringify(newUserData);
-		alert(newUserJSON);
 		console.log(newUserJSON);
 		newUser.send(newUserJSON);
 	} catch (err) {
@@ -87,6 +86,7 @@ function doLogin() {
 	}
 }
 
+
 function saveCookie() {
 	let minutes = 20;
 	let date = new Date();
@@ -134,23 +134,27 @@ function doLogout() {
 	window.location.href = "index.html";
 }
 
-function addColor() {
-	let newColor = document.getElementById("colorText").value;
+function addContact() {
+	let fName = document.getElementById("fName").value;
+	let lName = document.getElementById("lName").value;
+	let phoneNum = document.getElementById("phoneNumber").value;
+	let email = document.getElementById("email").value;
+
 	document.getElementById("colorAddResult").innerHTML = "";
 
-	let tmp = { color: newColor, userId, userId };
+	let tmp = { firstName: fName, lastName: lName, phoneNumber: phoneNum, email: email, groupId: null, userId: 1 };
 	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase + "/AddColor." + extension;
+	let url = urlBase + "/AddContact." + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
-		xhr.onreadystatechange = function () {
+		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				document.getElementById("colorAddResult").innerHTML =
-					"Color has been added";
+					"Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
