@@ -16,14 +16,14 @@
 		$firstName = "%" . $inData["searchFirstName"] . "%";
 		$lastName = "%" . $inData["searchLastName"] . "%";
 		if ($firstName == null) {
-			$stmt = $conn->prepare("SELECT Name from Colors where LastName like ? and UserID=?");
+			$stmt = $conn->prepare("SELECT Name from Contacts where LastName like ? and UserID=?");
 			$stmt->bind_param("ssi", $lastName, $inData["userId"]);
 		}elseif ($lastName == null) {
-			$stmt = $conn->prepare("SELECT Name from Colors where FirstName like ? and UserID=?");
+			$stmt = $conn->prepare("SELECT Name from Contacts where FirstName like ? and UserID=?");
 			$stmt->bind_param("si", $firstName, $inData["userId"]);
 		}
 		else{
-			$stmt = $conn->prepare("SELECT Name from Colors where FirstName like ? and LastName like ? and UserID=?");
+			$stmt = $conn->prepare("SELECT Name from Contacts where FirstName like ? and LastName like ? and UserID=?");
 			$stmt->bind_param("ssi", $firstName, $lastName, $inData["userId"]);
 		}
 
