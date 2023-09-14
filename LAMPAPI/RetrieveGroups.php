@@ -2,7 +2,6 @@
 	$inData = getRequestInfo();
 
   $userId = $inData["userId"];
-  $groupId = $inData["groupId"];
   $searchResults = "{";
   $searchCount = 0;
 
@@ -13,15 +12,8 @@
 	}
 	else
 	{
-   //echo ("Here1");
-   if($groupId == 0){
-
-    $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID is NULL");
+    $stmt = $conn->prepare("SELECT GroupName, GroupColor from Contacts where UserID=? and GroupID is NULL");
     $stmt->bind_param("i", $userId);
-    } else {
-       $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID=?");
-        $stmt->bind_param("ii", $userId, $groupId);
-   }
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -33,7 +25,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"] . '",' . '"LastName" : "' . $row["LastName"] . '",' . '"Phone" : "' . $row["Phone"] . '", "Email" : ' . '"' . $row["Email"] . '"}';		
+			$searchResults .= '{"GroupName" : "' . $row["groupName"] . '",' . '"GroupColor" : "' . $row["groupColor"] . '"}';
       }
 
 		if( $searchCount == 0 )
