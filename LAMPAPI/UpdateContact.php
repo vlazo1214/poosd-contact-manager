@@ -9,6 +9,7 @@
   $contactId = $inData["contactId"];
   $userId = $inData["userId"];
 
+
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
 	{
@@ -16,11 +17,16 @@
 	}
 	else
 	{
-    $stmt = $conn->prepare("UPDATE Contacts SET FirstName=?, LastName=?, Phone=?, Email=?, GroupID=? where ContactID=? and UserID=?");
-    $stmt->bind_param("ssssii", $firstName, $lastName, $phone, $email, $contactID, $userId);
-		$stmt->execute();
 
-		$stmt->close();
+    $stmt = "UPDATE Contacts SET FirstName='$firstName', LastName='$lastName', Phone='$phone', Email='$email', GroupID='$groupId' WHERE ID='$contactId';";
+    echo $stmt;
+
+    if ($conn->query($stmt) === TRUE) {
+      echo "Record updated successfully";
+    }
+    else {
+      echo "Error updating record: " . $conn->error;
+    }
 		$conn->close();
 	}
 

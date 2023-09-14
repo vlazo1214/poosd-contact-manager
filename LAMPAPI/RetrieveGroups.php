@@ -12,7 +12,7 @@
 	}
 	else
 	{
-    $stmt = $conn->prepare("SELECT GroupName, GroupColor from Contacts where UserID=? and GroupID is NULL");
+    $stmt = $conn->prepare("SELECT GroupID, GroupName, GroupColor from UserGroups where UserID=?");
     $stmt->bind_param("i", $userId);
 		$stmt->execute();
 
@@ -25,7 +25,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"GroupName" : "' . $row["groupName"] . '",' . '"GroupColor" : "' . $row["groupColor"] . '"}';
+			$searchResults .= '{"GroupID" : "' .$row["GroupID"] . '",' . '"GroupName" : "' . $row["GroupName"] . '",' . '"GroupColor" : "' . $row["GroupColor"] . '"}';
       }
 
 		if( $searchCount == 0 )

@@ -2,8 +2,10 @@
 
 	$inData = getRequestInfo();
 
-	$searchResults = "{";
+  $searchResults = "{";
 	$searchCount = 0;
+  $firstName = null;
+  $lastName = null;
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -12,18 +14,17 @@
 	}
 	else
 	{
-
-		$firstName = "%" . $inData["searchFirstName"] . "%";
-		$lastName = "%" . $inData["searchLastName"] . "%";
-		if ($firstName == null) {
-			$stmt = $conn->prepare("SELECT Name from Contacts where LastName like ? and UserID=?");
-			$stmt->bind_param("ssi", $lastName, $inData["userId"]);
-		}elseif ($lastName == null) {
-			$stmt = $conn->prepare("SELECT Name from Contacts where FirstName like ? and UserID=?");
+		if ($inData["searchFirstName"] != null) {
+      $firstName = "%" . $inData["searchFirstName"] . "%";
+			$stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where FirstName like ? and UserID=?");
 			$stmt->bind_param("si", $firstName, $inData["userId"]);
+		}elseif ($inData["searchLastName"] != null) {
+      $lastName = "%" . $inData["searchLastName"] . "%";
+			$stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where LastName like ? and UserID=?");
+			$stmt->bind_param("si", $lastName, $inData["userId"]);
 		}
 		else{
-			$stmt = $conn->prepare("SELECT Name from Contacts where FirstName like ? and LastName like ? and UserID=?");
+			$stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where FirstName like ? and LastName like ? and UserID=?");
 			$stmt->bind_param("ssi", $firstName, $lastName, $inData["userId"]);
 		}
 

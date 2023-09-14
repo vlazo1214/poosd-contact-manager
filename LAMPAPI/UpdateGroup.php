@@ -4,7 +4,6 @@
   $groupName = $inData["groupName"];
   $groupColor = $inData["groupColor"];
   $groupId = $inData["groupId"];
-  $userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -13,11 +12,8 @@
 	}
 	else
 	{
-    $stmt = $conn->prepare("UPDATE Contacts SET GroupName=?, GroupColor=? where GroupID=? and UserID=?");
-    $stmt->bind_param("ssssii", $groupName, $groupColor, $groupId, $userId);
-		$stmt->execute();
-    
-		$stmt->close();
+    $stmt = "UPDATE UserGroups SET GroupName='$groupName', GroupColor='$groupColor' WHERE GroupID='$groupId';";
+		$conn->query($stmt);
 		$conn->close();
 	}
 
