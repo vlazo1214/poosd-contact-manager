@@ -153,13 +153,16 @@ function addContact() {
 	try {
 		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("colorAddResult").innerHTML =
-					"Contact has been added";
+				// document.getElementById("colorAddResult").innerHTML =
+				// 	"Contact has been added";
+				console.log("Contact Added!")
 			}
 		};
+		console.log(jsonPayload)
 		xhr.send(jsonPayload);
 	} catch (err) {
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		// document.getElementById("colorAddResult").innerHTML = err.message;
+		console.log("ERR:" + err)
 	}
 }
 
