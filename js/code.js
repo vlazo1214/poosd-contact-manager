@@ -209,34 +209,14 @@ function searchColor() {
 	}
 }
 
-// function addTd() {
-// 	let newTd = document.createElement("tr")
-// 	let firstNameTd = document.createElement("td")
-// 	let lastNameTd = document.createElement("td")
-// 	let emailTd = document.createElement("td")
-// 	let phoneNumTd = document.createElement("td")
-// 	let groupTd = document.createElement("td")
-// 	newTd.appendChild()
-// 	let table = document.getElementById("contacts-list")
-// 	table.appendChild("td")
-// }
-
-// function removeTd() {
-
-// }
 
 function getContacts() {
 	let url = urlBase + "/RetrieveContacts." + extension;
 	let tableStr = "";
-	// fetch(url)
-	// 	.then(function (response) {
-	// 		console.log("contacts: ", response.json())
-	// 		return response.json()
-	// 	})
 
 	let userId = logCookie();
 	let groupId = 0;
-	let tmp = { userId : parseInt(userId), groupId : parseInt(groupId) };
+	let tmp = { userId: parseInt(userId), groupId: parseInt(groupId) };
 	let jsonPayload = JSON.stringify(tmp);
 	console.log(jsonPayload);
 
@@ -250,13 +230,25 @@ function getContacts() {
 				// 	"Contact has been added";
 				console.log("Contacts retrieved!")
 				console.log(JSON.parse(xhr.responseText))
+
+				let resLen = JSON.parse(xhr.responseText).list.length
+				let res = JSON.parse(xhr.responseText).list
+
+				for (let i = 0; i < resLen; i++) {
+					tableStr += "<tr>"
+					tableStr += "<td>" + (res[i].FirstName) + "</td>"
+					tableStr += "<td>" + (res[i].LastName) + "</td>"
+					tableStr += "<td>" + (res[i].Email) + "</td>"
+					tableStr += "<td>" + (res[i].Phone) + "</td>"
+					tableStr += "</tr>"
+				}
+
+				console.log(tableStr)
+				document.getElementById("contactsTable").innerHTML = tableStr
 			}
 		};
 		xhr.send(jsonPayload);
-
-		//document.getElementById("contactsTable").innerHTML += tableStr
 	} catch (err) {
-		// document.getElementById("colorAddResult").innerHTML = err.message;
 		console.log("ERR:" + err);
 	}
 }

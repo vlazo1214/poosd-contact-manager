@@ -24,6 +24,7 @@
         "DOMContentLoaded",
         function () {
           readCookie();
+          getContacts();
         },
         false
       );
@@ -79,8 +80,6 @@
     >
       Add Contact
     </button>
-
-    <button onclick="getContacts();">Get Contacts</button>
 
     <!-- Modal -->
     <div
@@ -150,7 +149,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              onclick="addContact();"
+              onclick="addContact();getContacts();"
             >
               Create Contact
             </button>
@@ -164,25 +163,13 @@
       <table class="table align-middle table-light table-hover">
         <thead>
           <tr class="align-bottom">
-            <th scope="col">#</th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Email</th>
+            <th scope="col">Phone</th>
           </tr>
         </thead>
         <tbody id="contactsTable">
-          <tr>
-            <th scope="row">1</th>
-            <td>Peter</td>
-            <td>Parker</td>
-            <td>@avengers</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Ganke</td>
-            <td>Lee</td>
-            <td>@spidey</td>
-          </tr>
         </tbody>
       </table>
   </body>
