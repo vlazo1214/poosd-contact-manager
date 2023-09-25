@@ -234,6 +234,9 @@ function getContacts() {
 	// 		return response.json()
 	// 	})
 
+	let userId = logCookie()
+	let info = JSON.stringify({ userId: userId, groupId: null });
+
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -246,7 +249,7 @@ function getContacts() {
 				console.log(JSON.parse(xhr.responseText))
 			}
 		};
-		xhr.send();
+		xhr.send(info);
 
 		//document.getElementById("contactsTable").innerHTML += tableStr
 	} catch (err) {
