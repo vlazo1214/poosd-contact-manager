@@ -227,18 +227,21 @@ function searchColor() {
 
 function getContacts() {
 	let url = urlBase + "/RetrieveContacts." + extension;
-	let tableStr = ""
+	let tableStr = "";
 	// fetch(url)
 	// 	.then(function (response) {
 	// 		console.log("contacts: ", response.json())
 	// 		return response.json()
 	// 	})
 
-	let userId = logCookie()
-	let info = JSON.stringify({ userId: userId, groupId: null });
+	let userId = logCookie();
+	let groupId = 0;
+	let tmp = { userId : parseInt(userId), groupId : parseInt(groupId) };
+	let jsonPayload = JSON.stringify(tmp);
+	console.log(jsonPayload);
 
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", url, true);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
 		xhr.onload = function () {
@@ -249,11 +252,11 @@ function getContacts() {
 				console.log(JSON.parse(xhr.responseText))
 			}
 		};
-		xhr.send(info);
+		xhr.send(jsonPayload);
 
 		//document.getElementById("contactsTable").innerHTML += tableStr
 	} catch (err) {
 		// document.getElementById("colorAddResult").innerHTML = err.message;
-		console.log("ERR:" + err)
+		console.log("ERR:" + err);
 	}
 }
