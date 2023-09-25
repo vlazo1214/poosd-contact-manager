@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Home</title>
+    <title>COP 4331 LAMP Stack Demo</title>
     <script type="text/javascript" src="js/code.js"></script>
     <link href="css/styles.css" rel="stylesheet" />
     <link
@@ -19,7 +19,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       document.addEventListener(
         "DOMContentLoaded",
         function () {
@@ -27,7 +27,7 @@
         },
         false
       );
-    </script>
+    </script> -->
   </head>
   <body>
     <div id="loggedInDiv">
@@ -68,8 +68,7 @@
         Add Color</button
       ><br />
       <span id="colorAddResult"></span>
-    </div>
-    -->
+    </div> -->
 
     <button
       type="button"
@@ -80,7 +79,14 @@
       Add Contact
     </button>
 
-    <button onclick="getContacts();">Get Contacts</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal2"
+    >
+      Get Contacts
+    </button>
 
     <!-- Modal -->
     <div
@@ -118,7 +124,7 @@
                 id="lName"
                 placeholder="Password"
               />
-              <label for="floatingInput">Last Name</label>
+              <label for="floatingPassword">Last Name</label>
             </div>
             <div class="form-floating mb-3">
               <input
@@ -159,6 +165,85 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal2"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Get Your Contacts
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="fName"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">First Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="lName"
+                placeholder="Password"
+              />
+              <label for="floatingPassword">Last Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Password"
+              />
+              <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="email"
+                class="form-control"
+                id="phoneNumber"
+                placeholder="Password"
+              />
+              <label for="floatingInput">Phone Number</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="getContacts();"
+            >
+              Get Contacts
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Data Table   -->
     <div class="table-responsive" id="dataTable">
       <table class="table align-middle table-light table-hover">
@@ -170,7 +255,7 @@
             <th scope="col">Email</th>
           </tr>
         </thead>
-        <tbody id="contactsTable">
+        <tbody>
           <tr>
             <th scope="row">1</th>
             <td>Peter</td>
@@ -185,5 +270,6 @@
           </tr>
         </tbody>
       </table>
+    </div>
   </body>
 </html>

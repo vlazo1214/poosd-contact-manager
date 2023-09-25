@@ -55,6 +55,7 @@ function doLogin() {
 	let tmp = { login: login, password: password };
 	//	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify(tmp);
+	console.log(jsonPayload)
 
 	let url = urlBase + "/Login." + extension;
 
@@ -62,11 +63,12 @@ function doLogin() {
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
+		console.log("yo")
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.id;
-
+				console.log("yo2")
 				if (userId < 1) {
 					document.getElementById("loginResult").innerHTML =
 						"User/Password combination incorrect";
@@ -81,6 +83,7 @@ function doLogin() {
 				window.location.href = "color.html";
 			}
 		};
+		console.log("yo3")
 		xhr.send(jsonPayload);
 	} catch (err) {
 		document.getElementById("loginResult").innerHTML = err.message;
@@ -126,6 +129,11 @@ function readCookie() {
 	}
 }
 
+function logCookie() {
+	let uId = document.cookie.split("=")
+	return uId[3]
+}
+
 function doLogout() {
 	userId = 0;
 	firstName = "";
@@ -134,14 +142,20 @@ function doLogout() {
 	window.location.href = "index.html";
 }
 
-function addColor() {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+function addContact() {
+	let fName = document.getElementById("fName").value;
+	let lName = document.getElementById("lName").value;
+	let phoneNum = document.getElementById("phoneNumber").value;
+	let email = document.getElementById("email").value;
 
-	let tmp = { color: newColor, userId, userId };
+	userId = logCookie()
+
+	//document.getElementById("colorAddResult").innerHTML = "";
+
+	let tmp = { firstName: fName, lastName: lName, phoneNumber: phoneNum, email: email, groupId: null, userId: userId };
 	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase + "/AddColor." + extension;
+	let url = urlBase + "/AddContact." + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -149,13 +163,12 @@ function addColor() {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("colorAddResult").innerHTML =
-					"Color has been added";
+				console.log("contact has been added!")
 			}
 		};
 		xhr.send(jsonPayload);
 	} catch (err) {
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		console.log("ERR: " + err)
 	}
 }
 
@@ -193,5 +206,51 @@ function searchColor() {
 		xhr.send(jsonPayload);
 	} catch (err) {
 		document.getElementById("colorSearchResult").innerHTML = err.message;
+	}
+}
+
+// function addTd() {
+// 	let newTd = document.createElement("tr")
+// 	let firstNameTd = document.createElement("td")
+// 	let lastNameTd = document.createElement("td")
+// 	let emailTd = document.createElement("td")
+// 	let phoneNumTd = document.createElement("td")
+// 	let groupTd = document.createElement("td")
+// 	newTd.appendChild()
+// 	let table = document.getElementById("contacts-list")
+// 	table.appendChild("td")
+// }
+
+// function removeTd() {
+
+// }
+
+function getContacts() {
+	let url = urlBase + "/RetrieveContacts." + extension;
+	let tableStr = ""
+	// fetch(url)
+	// 	.then(function (response) {
+	// 		console.log("contacts: ", response.json())
+	// 		return response.json()
+	// 	})
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onload = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				// document.getElementById("colorAddResult").innerHTML =
+				// 	"Contact has been added";
+				console.log("Contacts retrieved!")
+				console.log(JSON.parse(xhr.responseText))
+			}
+		};
+		xhr.send();
+
+		//document.getElementById("contactsTable").innerHTML += tableStr
+	} catch (err) {
+		// document.getElementById("colorAddResult").innerHTML = err.message;
+		console.log("ERR:" + err)
 	}
 }
