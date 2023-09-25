@@ -16,10 +16,10 @@
    //echo ("Here1");
    if($groupId == 0){
 
-    $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID is NULL");
+    $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID is NULL;");
     $stmt->bind_param("i", $userId);
     } else {
-       $stmt = $conn->prepare("SELECT FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID=?");
+       $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email from Contacts where UserID=? and GroupID=?;");
         $stmt->bind_param("ii", $userId, $groupId);
    }
 		$stmt->execute();
@@ -33,12 +33,12 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"] . '",' . '"LastName" : "' . $row["LastName"] . '",' . '"Phone" : "' . $row["Phone"] . '", "Email" : ' . '"' . $row["Email"] . '"}';		
+			$searchResults .= '{"ID" : "' .$row["ID"] . '",' . '"FirstName" : "' . $row["FirstName"] . '",' . '"LastName" : "' . $row["LastName"] . '",' . '"Phone" : "' . $row["Phone"] . '", "Email" : ' . '"' . $row["Email"] . '"}';		
       }
 
 		if( $searchCount == 0 )
 		{
-			returnWithError( "No Records Found" );
+			returnWithError( "No Records Found :" + $userId + " GroupId: " + $groupId );
 		}
 		else
 		{

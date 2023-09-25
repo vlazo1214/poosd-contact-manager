@@ -2,6 +2,7 @@
 	$inData = getRequestInfo();
 	
   $groupId = $inData["groupId"];
+  $groupId = (int) $groupId;
   
   $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 

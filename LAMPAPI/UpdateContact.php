@@ -8,8 +8,11 @@
   $groupId = $inData["groupId"];
   $contactId = $inData["contactId"];
   $userId = $inData["userId"];
-
-
+  $groupId = (int)$groupId;
+  $contactId = (int)$contactId;
+  $userId = (int)$userId;
+  
+  
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
 	{
@@ -17,17 +20,11 @@
 	}
 	else
 	{
-
     $stmt = "UPDATE Contacts SET FirstName='$firstName', LastName='$lastName', Phone='$phone', Email='$email', GroupID='$groupId' WHERE ID='$contactId';";
-    echo $stmt;
-
-    if ($conn->query($stmt) === TRUE) {
-      echo "Record updated successfully";
-    }
-    else {
-      echo "Error updating record: " . $conn->error;
-    }
-		$conn->close();
+    $conn->query($stmt);
+     
+	$conn->close();
+    returnWithInfo($inData,"");
 	}
 
 	function getRequestInfo()
@@ -43,13 +40,13 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithInfo($data, $err )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+	  $retValue = '{"id":"' .$data['contactId']. '","firstName":"' .$data['firstName']. '","lastName":"' .$data['lastName']. '","phone":"' .$data['phone']. '","email":"' .$data['email']. '","groupId":' .$data['groupId']. ',"userId":' .$data['userId']. ',"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

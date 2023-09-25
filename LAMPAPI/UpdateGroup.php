@@ -4,6 +4,8 @@
   $groupName = $inData["groupName"];
   $groupColor = $inData["groupColor"];
   $groupId = $inData["groupId"];
+  $groupColor = (int)$groupColor;
+  $groupId = (int)$groupId;
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -15,6 +17,7 @@
     $stmt = "UPDATE UserGroups SET GroupName='$groupName', GroupColor='$groupColor' WHERE GroupID='$groupId';";
 		$conn->query($stmt);
 		$conn->close();
+    returnWithInfo($inData, "");
 	}
 
 	function getRequestInfo()
@@ -34,9 +37,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithInfo($data, $err )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+	  $retValue = '{"id":"' .$data['groupId']. '","groupName":"' .$data['groupName']. '","groupColor":"' .$data['groupColor']. '","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
