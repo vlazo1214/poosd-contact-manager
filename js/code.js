@@ -175,15 +175,15 @@ function addContact() {
 function editContact() {
 	let url = urlBase + "/UpdateContact." + extension
 
-	let tr = document.querySelector("tr")
-	let contactId = tr.closest('tr').value
+	let contactId = document.getElementById("cId").value
+	console.log("CONTACT ID: " + contactId)
 	let firstName = document.getElementById("contactFName").value
 	let lastName = document.getElementById("contactLName").value
 	let email = document.getElementById("contactEmail").value
 	let phone = document.getElementById("contactPhoneNum").value
-	let groupId = 0
+	//let groupId = null
 
-	let payload = { contactId: contactId, firstName: firstName, lastName: lastName, email: email, phone: phone, groupId: groupId }
+	let payload = { contactId: contactId, firstName: firstName, lastName: lastName, email: email, phone: phone, groupId: null }
 	let jsonPayload = JSON.stringify(payload)
 
 	let xhr = new XMLHttpRequest()
@@ -223,10 +223,12 @@ function deleteContact(contact) {
 	}
 }
 
-function prefillValues(contactF, contactL, contactE, contactP) {
+function prefillValues(contactID, contactF, contactL, contactE, contactP) {
 	console.log("Hello")
 	console.log(contactF)
 	console.log(contactL)
+
+	document.getElementById("cId").value = contactID
 	document.getElementById("contactFName").value = contactF
 	document.getElementById("contactLName").value = contactL
 	document.getElementById("contactEmail").value = contactE
@@ -301,7 +303,7 @@ function getContacts() {
 					tableStr += "<td>" + (res[i].LastName) + "</td>"
 					tableStr += "<td>" + (res[i].Email) + "</td>"
 					tableStr += "<td>" + (res[i].Phone) + "</td>"
-					tableStr += '<td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton' + i + '" onclick="prefillValues(\'' + res[i].FirstName + '\', \'' + res[i].LastName + '\', \'' + res[i].Email + '\', \'' + res[i].Phone + '\');">Edit</button><button id="deleteButton' + i + '" onclick="deleteContact(' + res[i].ContactID + ');getContacts();">Delete</button></td>'
+					tableStr += '<td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton' + i + '" onclick="prefillValues(\'' + res[i].ContactID + '\', \'' + res[i].FirstName + '\', \'' + res[i].LastName + '\', \'' + res[i].Email + '\', \'' + res[i].Phone + '\');">Edit</button><button id="deleteButton' + i + '" onclick="deleteContact(' + res[i].ContactID + ');getContacts();">Delete</button></td>'
 					tableStr += "</tr>"
 				}
 
