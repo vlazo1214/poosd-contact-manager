@@ -33,7 +33,6 @@ function createAccount() {
 			}
 		};
 		newUserJSON = JSON.stringify(newUserData);
-		alert(newUserJSON);
 		console.log(newUserJSON);
 		newUser.send(newUserJSON);
 	} catch (err) {
@@ -152,10 +151,10 @@ function addContact() {
 	let url = urlBase + "/AddContact." + extension;
 
 	let xhr = new XMLHttpRequest();
-	xhr.oncomplete = function () {
-		str = reloadTableStr()
-		document.getElementById("contactsTable").innerHTML = str
-	}
+	// xhr.oncomplete = function () {
+	// 	str = reloadTableStr()
+	// 	document.getElementById("contactsTable").innerHTML = str
+	// }
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
@@ -163,6 +162,7 @@ function addContact() {
 			if (this.readyState == 4 && this.status == 200) {
 				console.log("contact has been added!")
 				getContacts();
+				clearValues();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -222,6 +222,13 @@ function deleteContact(contact) {
 	} catch (err) {
 		console.log(err)
 	}
+}
+
+function clearValues() {
+	document.getElementById("fName").value = ""
+	document.getElementById("lName").value = ""
+	document.getElementById("email").value = ""
+	document.getElementById("phoneNumber").value = ""
 }
 
 function prefillValues(contactID, contactF, contactL, contactE, contactP) {
@@ -293,8 +300,13 @@ function getContacts() {
 				console.log("Contacts retrieved!")
 				console.log(JSON.parse(xhr.responseText))
 
-				let resLen = JSON.parse(xhr.responseText).list.length
+				let obj = JSON.parse(xhr.responseText)
+
+				// if (obj.error)
+				// 	return;
+
 				let res = JSON.parse(xhr.responseText).list
+				let resLen = res.length
 
 				for (let i = 0; i < resLen; i++) {
 					tableStr += '<tr id="' + res[i].ContactID + '" value="' + res[i].ContactID + '">'
@@ -302,7 +314,7 @@ function getContacts() {
 					tableStr += "<td>" + (res[i].LastName) + "</td>"
 					tableStr += "<td>" + (res[i].Email) + "</td>"
 					tableStr += "<td>" + (res[i].Phone) + "</td>"
-					tableStr += '<td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton' + i + '" onclick="prefillValues(\'' + res[i].ContactID + '\', \'' + res[i].FirstName + '\', \'' + res[i].LastName + '\', \'' + res[i].Email + '\', \'' + res[i].Phone + '\');">Edit</button><button id="deleteButton' + i + '" onclick="deleteContact(' + res[i].ContactID + ');getContacts();">Delete</button></td>'
+					tableStr += '<td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton' + i + '" onclick="prefillValues(\'' + res[i].ContactID + '\', \'' + res[i].FirstName + '\', \'' + res[i].LastName + '\', \'' + res[i].Email + '\', \'' + res[i].Phone + '\');">Edit</button><button type="button" class="btn btn-outline-danger" id="deleteButton' + i + '" onclick="deleteContact(' + res[i].ContactID + ');getContacts();">Delete</button></td>'
 					tableStr += "</tr>"
 				}
 
@@ -316,12 +328,12 @@ function getContacts() {
 	}
 }
 
-const toastTrigger = document.getElementById("realLoginBtn")
-const toastLiveExample = document.getElementById('liveToast')
+// const toastTrigger = document.getElementById("realLoginBtn")
+// const toastLiveExample = document.getElementById('liveToast')
 
-if (toastTrigger) {
-	const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-	toastTrigger.addEventListener('click', () => {
-		toastBootstrap.show()
-	})
-}
+// if (toastTrigger) {
+// 	const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+// 	toastTrigger.addEventListener('click', () => {
+// 		toastBootstrap.show()
+// 	})
+// }

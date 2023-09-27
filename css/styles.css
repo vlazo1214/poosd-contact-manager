@@ -13,6 +13,10 @@ body {
   padding: 25px;
 }
 
+.colorBtns {
+  margin: auto;
+}
+
 .link {
   margin-left: 50px;
   color: white;
@@ -32,6 +36,30 @@ body {
   text-align: center;
   font-family: "Ubuntu", sans-serif;
   color: #ffffff;
+}
+
+#loginBtn {
+  width: 50%;
+  margin: auto;
+}
+
+#signUpBtn {
+  width: 49%;
+  margin: auto;
+}
+
+#contactBtn {
+  /* position: relative;
+  left: 1000px;
+  bottom: 35px; */
+}
+
+#logoutButton {
+  /* position: relative;
+   width: 20%;
+  margin-left: 40%;
+  left: 15px;
+  top: 55px; */
 }
 
 #loginDiv {
@@ -132,11 +160,6 @@ input[type="password"] {
   width: 400px;
   position: relative;
   margin: auto;
-}
-
-#logoutButton {
-  width: 20%;
-  margin-left: 40%;
 }
 
 select {

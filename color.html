@@ -42,33 +42,34 @@
     </script>
   </head>
   <body>
+    <div class="row"></div>
+    <div class="colorBtns col">
     <div id="loggedInDiv">
       <span id="userName"></span><br />
       <button
         type="button"
         id="logoutButton"
-        class="buttons"
+        class="btn btn-danger"
         onclick="doLogout();"
       >
         Log Out
       </button>
-    </div>
-
-    <input
+      <input
         type="email"
         class="form-control"
         id="searchInput"
         placeholder="Search"
-    />
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Add Contact
-    </button>
+      />
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="contactBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Add Contact
+      </button>
+    </div>
 
     <!-- Modal -->
     <div
