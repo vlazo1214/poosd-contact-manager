@@ -23,28 +23,27 @@
   <body>
     <h1 id="title">Spider Society</h1>
 
-    <div class="portals">
-      <a class="link" href="signIn.html" id="stack">Login</a>
-      <a class="link" href="signUp.html" id="stack">Sign Up</a>
+    <div class="homeBtns">
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="loginBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="signUpBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#signUpModal"
+      >
+        Sign Up
+      </button>
     </div>
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#loginModal"
-    >
-      Login
-    </button>
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#signUpModal"
-    >
-      Sign Up
-    </button>
 
     <!-- Login Modal -->
     <div
@@ -93,7 +92,12 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" onclick="doLogin();">
+            <button
+              type="button"
+              id="realLoginBtn"
+              class="btn btn-primary"
+              onclick="doLogin();"
+            >
               Login
             </button>
           </div>
@@ -143,7 +147,7 @@
               <input
                 type="email"
                 class="form-control"
-                id="username"
+                id="user-name"
                 placeholder="UserName"
               />
               <label for="floatingInput">Username</label>
@@ -175,6 +179,31 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Login Fail Toast -->
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img src="..." class="rounded me-2" alt="..." />
+          <strong class="me-auto">Login failed</strong>
+          <small>now</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Incorrect Username or Password</div>
       </div>
     </div>
   </body>

@@ -8,7 +8,7 @@ let lastName = "";
 function createAccount() {
 	let firstNameElement = document.getElementById("first-name").value;
 	let lastNameElement = document.getElementById("last-name").value;
-	let loginElement = document.getElementById("username").value;
+	let loginElement = document.getElementById("user-name").value;
 	let passwordElement = document.getElementById("password").value;
 
 	let newUserData = {
@@ -48,12 +48,9 @@ function doLogin() {
 
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
-	//	var hash = md5( password );
-
-	// document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = { login: login, password: password };
-	//	var tmp = {login:login,password:hash};
+
 	let jsonPayload = JSON.stringify(tmp);
 	console.log(jsonPayload)
 
@@ -70,8 +67,6 @@ function doLogin() {
 				userId = jsonObject.id;
 				console.log("yo2")
 				if (userId < 1) {
-					// document.getElementById("loginResult").innerHTML =
-					// 	"User/Password combination incorrect";
 					return;
 				}
 
@@ -125,7 +120,7 @@ function readCookie() {
 		window.location.href = "index.html";
 	} else {
 		document.getElementById("userName").innerHTML =
-			"Logged in as " + firstName + " " + lastName;
+			"Welcome " + firstName + " " + lastName + " to Spider Society!";
 	}
 }
 
@@ -147,10 +142,9 @@ function addContact() {
 	let lName = document.getElementById("lName").value;
 	let phoneNum = document.getElementById("phoneNumber").value;
 	let email = document.getElementById("email").value;
+	let str = ""
 
 	userId = logCookie()
-
-	//document.getElementById("colorAddResult").innerHTML = "";
 
 	let tmp = { firstName: fName, lastName: lName, phoneNumber: phoneNum, email: email, groupId: null, userId: userId };
 	let jsonPayload = JSON.stringify(tmp);
@@ -158,18 +152,25 @@ function addContact() {
 	let url = urlBase + "/AddContact." + extension;
 
 	let xhr = new XMLHttpRequest();
+	xhr.oncomplete = function () {
+		str = reloadTableStr()
+		document.getElementById("contactsTable").innerHTML = str
+	}
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				console.log("contact has been added!")
+				getContacts();
 			}
 		};
 		xhr.send(jsonPayload);
 	} catch (err) {
 		console.log("ERR: " + err)
 	}
+
+
 }
 
 function editContact() {
@@ -181,7 +182,6 @@ function editContact() {
 	let lastName = document.getElementById("contactLName").value
 	let email = document.getElementById("contactEmail").value
 	let phone = document.getElementById("contactPhoneNum").value
-	//let groupId = null
 
 	let payload = { contactId: contactId, firstName: firstName, lastName: lastName, email: email, phone: phone, groupId: null }
 	let jsonPayload = JSON.stringify(payload)
@@ -193,6 +193,7 @@ function editContact() {
 		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				console.log("Contact Edited!")
+				getContacts();
 			}
 		}
 		xhr.send(jsonPayload)
@@ -202,7 +203,6 @@ function editContact() {
 }
 
 function deleteContact(contact) {
-	// make delete contact API request (POST)
 	let url = urlBase + "/DeleteContact." + extension
 	let payload = { ID: contact }
 	let jsonPayload = JSON.stringify(payload)
@@ -214,6 +214,7 @@ function deleteContact(contact) {
 		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
 				console.log("Contact deleted")
+				getContacts()
 			}
 		}
 
@@ -224,10 +225,6 @@ function deleteContact(contact) {
 }
 
 function prefillValues(contactID, contactF, contactL, contactE, contactP) {
-	console.log("Hello")
-	console.log(contactF)
-	console.log(contactL)
-
 	document.getElementById("cId").value = contactID
 	document.getElementById("contactFName").value = contactF
 	document.getElementById("contactLName").value = contactL
@@ -235,43 +232,47 @@ function prefillValues(contactID, contactF, contactL, contactE, contactP) {
 	document.getElementById("contactPhoneNum").value = contactP
 }
 
-function searchColor() {
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+function reloadTableStr() {
+	let url = urlBase + "/RetrieveContacts." + extension;
+	let tableStr = "";
 
-	let colorList = "";
-
-	let tmp = { search: srch, userId: userId };
+	let userId = logCookie();
+	let groupId = 0;
+	let tmp = { userId: parseInt(userId), groupId: parseInt(groupId) };
 	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + "/SearchColors." + extension;
+	console.log(jsonPayload);
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try {
-		xhr.onreadystatechange = function () {
+		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("colorSearchResult").innerHTML =
-					"Color(s) has been retrieved";
-				let jsonObject = JSON.parse(xhr.responseText);
+				console.log("Contacts retrieved!")
+				console.log(JSON.parse(xhr.responseText))
 
-				for (let i = 0; i < jsonObject.results.length; i++) {
-					colorList += jsonObject.results[i];
-					if (i < jsonObject.results.length - 1) {
-						colorList += "<br />\r\n";
-					}
+				let resLen = JSON.parse(xhr.responseText).list.length
+				let res = JSON.parse(xhr.responseText).list
+
+				for (let i = 0; i < resLen; i++) {
+					tableStr += '<tr id="' + res[i].ContactID + '" value="' + res[i].ContactID + '">'
+					tableStr += "<td>" + (res[i].FirstName) + "</td>"
+					tableStr += "<td>" + (res[i].LastName) + "</td>"
+					tableStr += "<td>" + (res[i].Email) + "</td>"
+					tableStr += "<td>" + (res[i].Phone) + "</td>"
+					tableStr += '<td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" id="editButton' + i + '" onclick="prefillValues(\'' + res[i].ContactID + '\', \'' + res[i].FirstName + '\', \'' + res[i].LastName + '\', \'' + res[i].Email + '\', \'' + res[i].Phone + '\');">Edit</button><button id="deleteButton' + i + '" onclick="deleteContact(' + res[i].ContactID + ');getContacts();">Delete</button></td>'
+					tableStr += "</tr>"
 				}
 
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				// console.log(tableStr)
 			}
 		};
 		xhr.send(jsonPayload);
+		return tableStr;
 	} catch (err) {
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		console.log("ERR:" + err);
 	}
 }
-
 
 function getContacts() {
 	let url = urlBase + "/RetrieveContacts." + extension;
@@ -289,8 +290,6 @@ function getContacts() {
 	try {
 		xhr.onload = function () {
 			if (this.readyState == 4 && this.status == 200) {
-				// document.getElementById("colorAddResult").innerHTML =
-				// 	"Contact has been added";
 				console.log("Contacts retrieved!")
 				console.log(JSON.parse(xhr.responseText))
 
@@ -315,4 +314,14 @@ function getContacts() {
 	} catch (err) {
 		console.log("ERR:" + err);
 	}
+}
+
+const toastTrigger = document.getElementById("realLoginBtn")
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+	const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+	toastTrigger.addEventListener('click', () => {
+		toastBootstrap.show()
+	})
 }
